@@ -1,7 +1,7 @@
-import '@/styles/globals.css'
 import { NextPageWithLayout } from '@/types'
 import type { AppProps } from 'next/app'
 
+import '@/assets/css/main.css'
 
 const Noop: React.FC<{children?: React.ReactNode}> = ({children}) => {
   return <>{children}</>
@@ -12,22 +12,15 @@ type AppPropsWithLayout = AppProps & {
 }
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
-  const Layout = (Component as any).Layout || Noop;
+  const Layout = (Component as any).layout || Noop;
   const authProps = (Component as any).authenticate;
+  const getLayout = Component.getLayout ?? ((page)=> page)
 
   return(
     <>
-      {
-        authProps ? (
-          <Layout {...pageProps}>
-            <Component {...pageProps} />
-          </Layout>
-        ) : (
-          <Layout {...pageProps}>
-            <Component {...pageProps} />
-          </Layout>
-        )
-      }
+      <Layout {...pageProps}>
+        <Component {...pageProps} />
+      </Layout>
     </>
   )
 }

@@ -10,5 +10,8 @@ export default function AppLayout ({
 } : {
     userPermissions: string[]
 }) {
-    return true ? <AdminLayout {...props} /> : <OwnerLayout {...props} />
+    if (true) {
+        return <AdminLayout {...props} />;
+    }
+    return <OwnerLayout {...props} />;
 }
